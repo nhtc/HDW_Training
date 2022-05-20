@@ -1,0 +1,35 @@
+.form-container {
+    flex: 0 0 50%;
+}
+.form {
+    input,
+    button,
+    textarea {
+        font: {
+            family: inherit;
+            size: inherit;
+        } ;
+
+        display: block;
+    }
+
+    input,
+    textarea {
+        width: 70%;
+        margin-bottom: 1rem;
+        padding: 1rem;
+
+        border: none;
+    }
+
+    button {
+        font-weight: bold;
+
+        padding: 1rem;
+
+        color: white;
+        border: none;
+        border-radius: 3px;
+        background-color: rgb(228, 87, 87);
+    }
+}

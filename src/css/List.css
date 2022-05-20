@@ -1,0 +1,11 @@
+.list-container {
+    flex: 0 0 50%;
+}
+.list-container .list-item-container {
+    padding: 1rem;
+
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+/*# sourceMappingURL=List.css.map */

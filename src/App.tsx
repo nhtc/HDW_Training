@@ -1,24 +1,37 @@
-import React, {useState} from 'react';
-import Form from './components/FormComponent';
-import List from './components/ListComponent';
-import './App.css';
-
-
-export interface IState {
-  people: {
-    name:string,
-    age:number,
-    bio:string
-  }[]
-}
-function App() {
-  const [people, setPeople]=useState<IState['people']>([{name:"Cuong",age:20,bio:"FE"}])
-  return (
-    <div className="container">
-      <Form people={people} update={setPeople}/>
-      <List people={people}/>
-    </div> 
-  );
+import "./App.css"
+import Navigation from "./components/Navigation"
+import Pokemon from "./components/Pokemon"
+import DetailPokemon from "./components/DetailPokemon"
+import About from "./components/About"
+import Home from "./components/Home"
+import Notfound from "./components/Notfound"
+import { Routes, Route, Outlet } from "react-router-dom"
+const App: React.FC = () => {
+	return (
+		<>
+			<Navigation />
+		</>
+	)
 }
 
-export default App;
+export default App
+
+// import * as React from "react"
+// import { Routes, Route, useParams } from "react-router-dom"
+
+// function ProfilePage() {
+// 	// Get the userId param from the URL.
+// 	let user = useParams<{ userId: string }>()
+// 	return <div>{user.userId}</div>
+// }
+
+// function App() {
+// 	return (
+// 		<Routes>
+// 			<Route path='users'>
+// 				<Route path=':userId' element={<ProfilePage />} />
+// 			</Route>
+// 		</Routes>
+// 	)
+// }
+// export default App

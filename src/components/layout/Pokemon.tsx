@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from "react"
 import { Card, Button } from "react-bootstrap"
-import { PokemonProperties, PokemonInfo } from "../interface"
-import { Link, NavLink, Routes, Route, useNavigate } from "react-router-dom"
+import { PokemonProperties, PokemonInfo } from "../../interface"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import "../css/pokemon.css"
+import "../../css/pokemon.css"
 const Pokemon: React.FC = () => {
 	const [pokemons, setPokemons] = useState<PokemonProperties[]>([])
 	const navigate = useNavigate()
-	useEffect(() => {
-		const getPokemon = async () => {
-			const listPokemons = await axios.get(
-				"https://pokeapi.co/api/v2/pokemon?limit=20&offset=20"
-			)
 
-			listPokemons.data.results.forEach(async (pokemon: PokemonInfo) => {
-				const aPokemon = await axios.get(
-					`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+	useEffect(() => {
+		console.log("useEffect called")
+		;(async () => {
+			await axios
+				.get("https://pokeapi.co/api/v2/pokemon?limit=20&offset=20")
+				.then(response =>
+					response.data.results.forEach(
+						async (pokemon: PokemonInfo) => {
+							const aPokemon = await axios
+								.get(
+									`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+								)
+								.then(response =>
+									setPokemons(prevState => [
+										...prevState,
+										response.data,
+									])
+								)
+						}
+					)
 				)
-				setPokemons(prevState => [...prevState, aPokemon.data])
-			})
-		}
-		getPokemon()
+				.catch(err => console.log(err))
+		})()
 	}, [])
 
 	return (
@@ -50,10 +60,13 @@ const Pokemon: React.FC = () => {
 									>
 										{pokemon.name}
 									</Card.Title>
-									<Button variant='outline-success'>
+									<Button variant='warning'>
 										<Link
+											className='text-decoration-none text-dark font-italic'
 											to={`/collection/${pokemon.name}`}
-											state={{ pokemon: pokemon }}
+											state={{
+												pokemon,
+											}}
 										>
 											Detail
 										</Link>

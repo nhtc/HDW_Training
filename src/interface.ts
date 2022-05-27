@@ -15,3 +15,14 @@ export interface PokemonInfo {
     name: string
     url: string
 }
+
+
+export interface IState{
+	isLogIn: Boolean
+}
+
+
+export interface NavigationProps {
+	isLog: Boolean
+	updateLogIn: (val: Boolean) => void
+}

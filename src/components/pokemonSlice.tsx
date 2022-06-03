@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { PokemonProperties } from '../interface';
 
 const poke = createSlice({

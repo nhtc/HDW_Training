@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { PokemonProperties, PokemonInfo } from '../../interface';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../../css/pokemon.css';
+import React, { useEffect, useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPokemon, removePokemon } from '../pokemonSlice';
+import { Link } from 'react-router-dom';
+
+import { PokemonInfo, PokemonProperties } from '../../interface';
 import { RootState } from '../../store';
+import { addPokemon, removePokemon } from '../pokemonSlice';
+
+import '../../css/pokemon.css';
+
 const Pokemon: React.FC = () => {
   const pokemonList = useSelector((state: RootState) => state.pokemon);
   const [pokemons, setPokemons] = useState<PokemonProperties[]>([]);

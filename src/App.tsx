@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
+
 import Notfound from './components/common/Notfound';
 import PrivateRoute, {
   ProtectedRouteProps,
@@ -12,6 +12,9 @@ import Home from './components/layout/Home';
 import Login from './components/layout/Login';
 import Navigation from './components/layout/Navigation';
 import Pokemon from './components/layout/Pokemon';
+
+import './App.css';
+
 const App: React.FC = () => {
   const [isLogIn, setIsLogIn] = useState<boolean>(false);
 
@@ -41,7 +44,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="collection" element={<Pokemon />} />
         <Route path="collection/:name" element={<DetailPokemon />} />
-        <Route path="about" element={<About />} />
+        <Route path="carts" element={<About />} />
         <Route
           path="login"
           element={<Login isLog={isLogIn} updateLogIn={updateLog} />}

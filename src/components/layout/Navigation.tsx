@@ -1,8 +1,10 @@
-import React from 'react';
-import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+
 import { NavigationProps } from '../../interface';
+
 const Navigation = (props: NavigationProps) => {
   return (
     <div>
@@ -28,8 +30,8 @@ const Navigation = (props: NavigationProps) => {
               <Nav.Link as={NavLink} to="admin">
                 Admin
               </Nav.Link>
-              <Nav.Link as={NavLink} to="about">
-                About
+              <Nav.Link as={NavLink} to="carts">
+                Carts
               </Nav.Link>
             </Nav>
             {!props.isLog ? (

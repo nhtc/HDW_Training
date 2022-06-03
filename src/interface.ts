@@ -23,6 +23,6 @@ export interface IState{
 
 
 export interface NavigationProps {
-	isLog: Boolean
-	updateLogIn: (val: Boolean) => void
+	isLog: boolean
+	updateLogIn: (val: boolean) => void
 }

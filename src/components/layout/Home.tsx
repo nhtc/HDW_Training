@@ -1,10 +1,11 @@
-import "../../css/home.css"
+import React from 'react';
+import '../../css/home.css';
 const Home = () => {
-	return (
-		<div className='container-home'>
-			<h1>The Pokemon Shop</h1>
-		</div>
-	)
-}
+  return (
+    <div className="container-home">
+      <h1>The Pokemon Shop</h1>
+    </div>
+  );
+};
 
-export default Home
+export default Home;

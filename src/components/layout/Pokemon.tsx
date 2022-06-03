@@ -1,55 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { PokemonProperties, PokemonInfo } from '../../interface';
+import React, { useEffect, useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import '../../css/pokemon.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { addPokemon, removePokemon } from '../pokemonSlice';
-import { RootState } from '../../store';
+import { PokemonProperties } from '../../interface';
+import { AppDispatch, RootState, useSelector } from '../../store';
+import { addPokemon, getPokemons, IDefaultState } from '../pokemonSlice';
+
 const Pokemon: React.FC = () => {
   const pokemonList = useSelector((state: RootState) => state.pokemon);
-  const [pokemons, setPokemons] = useState<PokemonProperties[]>([]);
+  const [pokemons, setPokemons] = useState<IDefaultState>();
   const [selected, setSelected] = useState<number[]>(() => {
-    return pokemonList.map((pokemon) => pokemon.id);
+    return pokemonList.listPokemon.map(
+      (pokemon: PokemonProperties) => pokemon.id
+    );
   });
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    console.log('useEffect called');
-    (async () => {
-      await axios
-        .get('https://pokeapi.co/api/v2/pokemon?limit=50&offset=20')
-        .then((response) =>
-          response.data.results.forEach(async (pokemon: PokemonInfo) => {
-            await axios
-              .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-              .then((response) =>
-                setPokemons((prevState) => [...prevState, response.data])
-              );
-          })
-        )
-        .catch((err) => console.log(err));
-    })();
+    dispatch(getPokemons());
   }, []);
 
   const addToCart = (pokemon: PokemonProperties) => {
     console.log('addToCart dduowjc goi ', selected);
     setSelected((prev) => {
       const isSelected = prev.includes(pokemon.id);
-      if (isSelected) {
-        dispatch(removePokemon(pokemon));
-        return selected.filter((id) => id !== pokemon.id);
-      } else {
-        dispatch(addPokemon(pokemon));
-        return [...prev, pokemon.id];
-      }
+      // if (isSelected) {
+      //   dispatch(removePokemon(pokemon));
+      //   return selected.filter((id) => id !== pokemon.id);
+      // } else {
+      //   dispatch(addPokemon(pokemon));
+      //   return [...prev, pokemon.id];
+      // }
+      dispatch(addPokemon(pokemon));
+      return [...prev, pokemon.id];
     });
   };
 
   return (
     <div className="container ">
       <div className="row d-flex justify-content-center">
-        {pokemons.map((pokemon) => {
+        {pokemons?.listPokemon.map((pokemon) => {
           return (
             <div className="col-1 card-container" key={pokemon.id}>
               <Card>

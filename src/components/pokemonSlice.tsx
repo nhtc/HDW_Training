@@ -1,10 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { PokemonInfo, PokemonProperties } from '../interface';
-import {
-  POKEMON_FAIL,
-  POKEMON_LOADING,
-  POKEMON_SUCCESS,
-} from './common/PokemonActionType';
+import { POKEMON_FAIL, POKEMON_LOADING, POKEMON_SUCCESS } from './common/PokemonActionType';
 
 export const getPokemons = createAsyncThunk('pokemon/getPokemons', async () => {
   const res = await fetch(
@@ -36,11 +33,10 @@ const poke = createSlice({
   initialState,
   reducers: {
     addPokemon: (state, action: PayloadAction<PokemonProperties>) =>
-      // void state.listPokemon.push(action.payload)
-      console.log(action.payload),
-    removePokemon: (state, action: PayloadAction<PokemonProperties>) =>
-      // void state.listPokemon.filter((value) => action.payload.id !== value.id)
-      console.log(action.payload),
+      void state.listPokemon.push(action.payload)
+    removePokemon: (state, action: PayloadAction<PokemonProperties>) => 
+      void state.listPokemon.filter((value) => action.payload.id !== value.id);
+
   },
   extraReducers: (builder) => {
     builder

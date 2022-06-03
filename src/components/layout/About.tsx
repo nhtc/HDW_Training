@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { PokemonProperties } from '../../interface';
 import { RootState } from '../../store';
 
@@ -15,7 +16,6 @@ const About = () => {
               <h1 key={poke.id}>{poke.name}</h1>
             ))}
           </p>
-          <p>Bootstrap v5.1.3</p>
         </div>
       </div>
     </div>

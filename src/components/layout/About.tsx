@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+=======
+import React from 'react';
+import { useSelector } from 'react-redux';
+>>>>>>> temp
 
 import { PokemonProperties } from '../../interface';
 import { RootState } from '../../store';
@@ -30,6 +35,7 @@ const About = () => {
     <div>
       <div className="container">
         <div className="text-center mt-5">
+<<<<<<< HEAD
           <h1>List pokemon</h1>
           <div className="row">
             {pokemons.map((poke) => (
@@ -56,6 +62,14 @@ const About = () => {
               </div>
             ))}
           </div>
+=======
+          <h1>A Bootstrap 5 Starter Template</h1>
+          <p className="lead">
+            {pokemons.selected.map((poke) => (
+              <h1 key={poke}>{poke}</h1>
+            ))}
+          </p>
+>>>>>>> temp
         </div>
       </div>
     </div>

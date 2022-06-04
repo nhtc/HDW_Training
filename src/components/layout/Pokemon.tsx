@@ -1,42 +1,24 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { PokemonInfo, PokemonProperties } from '../../interface';
-import { RootState } from '../../store';
-import { addPokemon, removePokemon } from '../pokemonSlice';
-
 import '../../css/pokemon.css';
+import { PokemonProperties } from '../../interface';
+import { AppDispatch, RootState, useSelector } from '../../store';
+import { addPokemon, getPokemons, removePokemon } from '../pokemonSlice';
 
 const Pokemon: React.FC = () => {
   const pokemonList = useSelector((state: RootState) => state.pokemon);
-  const [pokemons, setPokemons] = useState<PokemonProperties[]>([]);
   const [selected, setSelected] = useState<number[]>(() => {
-    return pokemonList.map((pokemon) => pokemon.id);
+    return pokemonList.selected;
   });
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     console.log('useEffect called');
-    (async () => {
-      await axios
-        .get('https://pokeapi.co/api/v2/pokemon?limit=50&offset=20')
-        .then((response) =>
-          response.data.results.forEach(async (pokemon: PokemonInfo) => {
-            await axios
-              .get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-              .then((response) =>
-                setPokemons((prevState) => [...prevState, response.data])
-              );
-          })
-        )
-        .catch((err) => console.log(err));
-    })();
+    dispatch(getPokemons());
   }, []);
 
   const addToCart = (pokemon: PokemonProperties) => {
-    console.log('addToCart dduowjc goi ', selected);
     setSelected((prev) => {
       const isSelected = prev.includes(pokemon.id);
       if (isSelected) {
@@ -52,7 +34,7 @@ const Pokemon: React.FC = () => {
   return (
     <div className="container ">
       <div className="row d-flex justify-content-center">
-        {pokemons.map((pokemon) => {
+        {pokemonList.listPokemon.map((pokemon: PokemonProperties) => {
           return (
             <div className="col-1 card-container" key={pokemon.id}>
               <Card>

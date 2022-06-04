@@ -30,6 +30,7 @@ const App: React.FC = () => {
       localStorage.removeItem('access-token');
     }
   }, [isLogIn]);
+
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
     isAuthenticated: Boolean(isLogIn),
     authenticationPath: '/login',

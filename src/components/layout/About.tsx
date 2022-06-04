@@ -12,8 +12,8 @@ const About = () => {
         <div className="text-center mt-5">
           <h1>A Bootstrap 5 Starter Template</h1>
           <p className="lead">
-            {pokemons.listPokemon.map((poke) => (
-              <h1 key={poke.id}>{poke.name}</h1>
+            {pokemons.selected.map((poke) => (
+              <h1 key={poke}>{poke}</h1>
             ))}
           </p>
         </div>

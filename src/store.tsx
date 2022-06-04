@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
 import pokemonReducer from './components/pokemonSlice';
+import { configureStore } from '@reduxjs/toolkit';
 import {
+  useSelector as rawUseSelector,
   TypedUseSelectorHook,
   useDispatch,
-  useSelector as rawUseSelector,
 } from 'react-redux';
 
 const rootReducer = {

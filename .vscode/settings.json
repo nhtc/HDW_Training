@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "eslint.format.enable": false,
+  "eslint.nodePath": ".eslintrc.cjs"
+}

@@ -1,58 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { RootState } from "./app/store";
+import { getPokemons } from "./features/pokemons/pokemonsSlice";
+import useDebounce from "./hooks/Debounce";
+import About from "./layouts/About";
+import Admin from "./layouts/Admin";
+import Control from "./layouts/Control";
+import DetailPokemon from "./layouts/DetailPokemon";
+import Login from "./layouts/Login";
+import ModalCom from "./layouts/Modal";
+import Modal from "./layouts/Modal";
+import Navigation from "./layouts/Navigation";
+import Pagination from "./layouts/Pagination";
+import Pokemon from "./layouts/Pokemon";
+import Register from "./layouts/Register";
+import Home from "./pages/Home";
+import Notfound from "./pages/Notfound";
+import PrivateRoute from "./utils/PrivateRoute";
+//node -r esm server.js
 
-function App() {
+const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const pokemonList = useAppSelector((state: RootState) => state.pokemon);
+
+  useEffect(() => {
+    if (pokemonList.listPokemon.length === 0) {
+      dispatch(getPokemons());
+    }
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <div>
+        <Navigation />
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="collection" element={<Pokemon />} />
+        <Route path="collection/:name" element={<DetailPokemon />} />
+        <Route path="carts" element={<About />} />
+        <Route path="login" element={<Login />} />
+        <Route path="control" element={<Control />} />
+        <Route path="register" element={<Register />} />
+        <Route path="admin" element={<PrivateRoute outlet={<Admin />} />} />
+        <Route path="*" element={<Notfound />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
